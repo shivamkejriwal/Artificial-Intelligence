@@ -34,6 +34,8 @@ public class Board extends JPanel implements ActionListener{
         BoardHeight	= getSize().height;
         agent 		= new Agent(10,10,5);
         goal  		= new Agent(BoardWidth/2,BoardHeight-10,5);
+        agent.setGridSize(BoardWidth, BoardHeight);
+        goal.setGridSize(BoardWidth, BoardHeight);
         path		= new ArrayList<Point>();
         timer 		= new Timer(1, this);
         timer.start();
@@ -85,21 +87,19 @@ public class Board extends JPanel implements ActionListener{
 		//goal.move((goal.getX()+1)%BoardWidth, (goal.getY()+1)% BoardHeight);
 		//goal.move((goal.getX()+1)%BoardWidth, goal.getY());
 		//goal.move(goal.getX(), (goal.getY()+1)% BoardHeight);
-		
-        boolean[][] grid = new boolean[BoardWidth][BoardHeight];
+        //boolean[][] grid = new boolean[BoardWidth][BoardHeight];
         
-        //goal.setGoal(agent.getLocation());
+		//goal.setGoal(agent.getLocation());
         agent.setGoal(goal.getLocation());
-        
         if(!foundGoal())
     	{
         	
-        	//goal.moveTowardsGoal(grid,false);	
+        	//goal.moveTowardsGoal(new boolean[BoardWidth][BoardHeight],false);	
     		path.add(agent.getLocation());
-    		agent.moveTowardsGoal(grid,false);
+    		agent.moveTowardsGoal(new boolean[BoardWidth][BoardHeight],false);
     	}
         repaint();  
+		
     }
-
 
 }
