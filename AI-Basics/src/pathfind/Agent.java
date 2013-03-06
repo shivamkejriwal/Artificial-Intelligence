@@ -40,17 +40,18 @@ public class Agent {
     	goalX = goal.getX();
     	goalY = goal.getY();
     }
-    
-    public Point getLocation(){
-    	return new Point(x,y);
-    }
 
     public void move(int x,int y) {
+    	if(gridWidth<=0 || gridHeight<=0)return;
+    	if(!isValidMove(x,y))return;
         this.x = x;
         this.y = y;
     }
 
-    
+    public void setGridSize(int width, int height){
+    	gridWidth	= width;
+    	gridHeight	= height;
+    }
     
    
 	
@@ -75,8 +76,19 @@ public class Agent {
 	}
 	
     public Stack<Point> moveTowardsGoal(boolean[][] grid, boolean returnPath){
-    	gridHeight	= grid[0].length;
-    	gridWidth	= grid.length;
+    	/*
+    	System.out.println();
+    	for(int i=0;i<gridWidth;i++){
+    		for(int j=0;j<gridHeight;j++){
+    			if(grid[i][j])
+    				System.out.print(",1");
+    			else
+    				System.out.print(",0");
+    		}
+    		System.out.print("\n");
+    	}
+    	*/
+    	setGridSize(grid.length,grid[0].length);
        	Point Start	= new Point(x,y);
     	Point Goal	= new Point(goalX,goalY);
     	//System.out.println("inside pathfind:Start:"+Start.toString()+"Goal:"+Goal.toString());
@@ -125,8 +137,8 @@ public class Agent {
 	}
 
     public boolean isValidMove(int xLoc,int yLoc){
-		if(xLoc<0 || xLoc >= gridWidth)return false;
-		if(yLoc<0 || yLoc >= gridHeight)return false;
+		if(xLoc<0 || (xLoc) >= gridWidth)return false;
+		if(yLoc<0 || (yLoc) >= gridHeight)return false;
 		return true;
 	}
     
@@ -138,6 +150,10 @@ public class Agent {
         return y;
     }
 
+    public Point getLocation(){
+    	return new Point(x,y);
+    }
+    
     public int getWidth(){
     	return (int)dim.getWidth();
     }
